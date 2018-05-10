@@ -1,0 +1,25 @@
+---
+- name: put the Calico files in /tmp on the primary master
+  template:
+    dest: "/{{ item }}"
+    src: "{{ item }}"
+  with_items:
+    - tmp/rbac-kdd.yaml
+    - tmp/calico.yaml
+  register: calico_manifests
+  run_once: True
+  delegate_to: "{{ groups['masters'][0] }}"
+
+- name: install Calico Manifests
+  command: "/usr/bin/kubectl apply -f {{ item.dest }}"
+  run_once: True
+  with_items: "{{ calico_manifests.results }}"
+  delegate_to: "{{ groups['masters'][0] }}"
+
+- name: install calicoctl
+  get_url:
+     url: "{{ kubernetes_cni.calico.calicoctl_url }}"
+     dest: /usr/bin/calicoctl
+     mode: 0755
+  retries: 10
+  delay: 5

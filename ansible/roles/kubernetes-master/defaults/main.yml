@@ -1,0 +1,24 @@
+---
+kubernetes_master:
+  kubeadm_config:
+    kubernetesVersion: "{{ kubernetes_common.kubernetes_version }}"
+    api:
+      advertiseAddress: "{{ kubernetes_common.api_ip }}"
+    apiServerExtraArgs:
+      "endpoint-reconciler-type": "lease"
+    apiServerCertSANs:
+    - "{{ kubernetes_common.api_fqdn }}"
+    - "{{ kubernetes_common.api_ip }}"
+    etcd:
+      endpoints: "{{ etcd_client_endpoints }}"
+      caFile: "/etc/kubernetes/pki/etcd/ca.crt"
+      certFile: "/etc/kubernetes/pki/apiserver-etcd-client.crt"
+      keyFile: "/etc/kubernetes/pki/apiserver-etcd-client.key"
+    kubeProxy:
+      config:
+        clusterCIDR: "{{ kubernetes_common.pod_cidr }}"
+    token: "{{ generated_token.stdout }}"
+    networking:
+      podSubnet: "{{ kubernetes_common.pod_cidr }}"
+      serviceSubnet: "{{ kubernetes_common.service_cidr }}"
+

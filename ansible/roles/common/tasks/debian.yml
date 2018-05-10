@@ -1,0 +1,26 @@
+---
+- name: update apt cache
+  apt:
+    update_cache: True
+    cache_valid_time: 3600
+
+- name: perform a dist-upgrade
+  apt:
+    upgrade: dist
+  when: common_upgrade_base | bool
+
+- name: install baseline dependencies
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - openssh-client
+    - openssh-server
+    - apt-transport-https
+    - python-pip
+    - python-requests
+    - ebtables
+    - socat
+    - ntp
+    - jq
+    - nfs-client

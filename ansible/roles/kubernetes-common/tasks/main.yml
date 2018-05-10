@@ -1,0 +1,28 @@
+---
+- name: set kubernetes node ip fact.
+  set_fact:
+    kubernetes_node_ip: "{{ hostvars[inventory_hostname]['ansible_'~item]['ipv4']['address'] }}"
+  with_items:
+    - "{{ kubernetes_common.primary_interface }}"
+  when: kubernetes_common.primary_interface is defined
+
+- name: set kubernetes common facts.
+  set_fact:
+    service_cidr: "{{ kubernetes_common.service_cidr }}"
+    pod_cidr: "{{ kubernetes_common.pod_cidr }}"
+
+- name: create kubelet config directory
+  file:
+    dest: /etc/systemd/system/kubelet.service.d
+    state: directory
+
+- name: dropins for kubelet config
+  template:
+    dest: "/etc/systemd/system/kubelet.service.d/{{ item }}"
+    src: "etc/systemd/system/kubelet.service.d/{{ item }}"
+  with_items:
+    - 09-extra-args.conf
+    - 11-fix-dns.conf
+  notify:
+    - restart kubelet
+  when: kubernetes_common.primary_interface is defined or kubernetes_common.kubelet_extra_args is defined

@@ -1,0 +1,9 @@
+---
+kubernetes_cni:
+  plugin: calico
+  calico:
+    rbac_manifest_url: "https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml"
+    manifest_url: "https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml"
+    calicoctl_url: "https://github.com/projectcalico/calicoctl/releases/download/v2.0.4/calicoctl"
+  flannel:
+    manifest_url: "https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml"
