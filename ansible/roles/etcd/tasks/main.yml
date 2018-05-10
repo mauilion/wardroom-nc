@@ -6,6 +6,10 @@
     mode: 0744
     force: no
 
+- name: register etcd endpoints fact
+  set_fact:
+    etcd_client_endpoints: "{{ etcd_client_endpoints }}"
+
 - name: determine whether kubeadm needs to create etcd ca
   stat:
     path: "/etc/kubernetes/pki/etcd/{{ item }}"

@@ -10,7 +10,7 @@ kubernetes_master:
     - "{{ kubernetes_common.api_fqdn }}"
     - "{{ kubernetes_common.api_ip }}"
     etcd:
-      endpoints: "{{ etcd_client_endpoints }}"
+      endpoints: "{{ hostvars[groups['etcd'][0]]['etcd_client_endpoints'] }}"
       caFile: "/etc/kubernetes/pki/etcd/ca.crt"
       certFile: "/etc/kubernetes/pki/apiserver-etcd-client.crt"
       keyFile: "/etc/kubernetes/pki/apiserver-etcd-client.key"

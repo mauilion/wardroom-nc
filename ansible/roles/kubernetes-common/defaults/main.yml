@@ -1,10 +1,9 @@
 ---
 kubernetes_common:
-  api_fqdn: k8s.example.com
-  api_ip: 10.10.10.3
+  api_fqdn: borg.dealercenter.net
+  api_ip: 172.21.57.32
   kubernetes_version: 1.9.7
-  pod_cidr: '10.2.0.0/16'
-  service_cidr: '10.3.0.0/16'
-  primary_interface: enp0s8
+  pod_cidr: '172.22.0.0/17'
+  service_cidr: '172.22.128.0/17'
   # kubelet_extra_args is a dict of arg:value (ie. 'node-ip: 1.1.1.1' for '--node-ip=1.1.1.1')
   kubelet_extra_args: {}
