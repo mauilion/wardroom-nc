@@ -19,4 +19,4 @@ spec:
     - name: UCARP_PASSWORD
       value: "mypassword"
     - name: UCARP_DEVICE
-      value: "bond0"
+      value: {{ kube-ucarp-vip.primary_interface }}

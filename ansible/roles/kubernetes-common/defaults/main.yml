@@ -5,6 +5,6 @@ kubernetes_common:
   kubernetes_version: 1.9.7
   pod_cidr: '172.22.0.0/17'
   service_cidr: '172.22.128.0/17'
-  #primary_interface: enp0s8
+  primary_interface: enp0s8
   # kubelet_extra_args is a dict of arg:value (ie. 'node-ip: 1.1.1.1' for '--node-ip=1.1.1.1')
   kubelet_extra_args: {}
