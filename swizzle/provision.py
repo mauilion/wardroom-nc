@@ -81,11 +81,14 @@ def generate_inventory(node_state={}):
     }
     for node, state in sorted(node_state.items()):
         if state == "running":
-            if node.startswith("master"):
-                inventory["masters"].append(node)
+            if node.startswith("etcd"):
                 inventory["etcd"].append(node)
             elif node.startswith("node"):
                 inventory["nodes"].append(node)
+            elif node.startswith("master"):
+                inventory["masters"].append(node)
+    if len(inventory["etcd"]) == 0:
+       inventory["etcd"] = inventory["masters"]
 
     parser = ConfigParser.ConfigParser(allow_no_value=True)
     for key, vals in inventory.items():
@@ -121,7 +124,7 @@ def main():
 
     node_state = vagrant_status()
     inventory_file = generate_inventory(node_state)
-    run_ansible(inventory_file, extra_args)
+ #   run_ansible(inventory_file, extra_args)
 
 
 if __name__ == '__main__':
