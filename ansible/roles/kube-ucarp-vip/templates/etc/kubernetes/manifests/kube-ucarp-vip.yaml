@@ -15,8 +15,8 @@ spec:
     - name: UCARP_VID
       value: "41"
     - name: UCARP_ADDRESS
-      value: "172.21.57.32/24"
+      value: {{ kube_ucarp_vip.vip_ip }}
     - name: UCARP_PASSWORD
       value: "mypassword"
     - name: UCARP_DEVICE
-      value: {{ kube-ucarp-vip.primary_interface }}
+      value: {{ kube_ucarp_vip.primary_interface }}

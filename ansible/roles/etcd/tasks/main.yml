@@ -6,6 +6,11 @@
     mode: 0744
     force: no
 
+- name: create kubernetes etcd pki dirs
+  file:
+    dest: /etc/kubernetes/pki/etcd
+    state: directory
+
 - name: register etcd endpoints fact
   set_fact:
     etcd_client_endpoints: "{{ etcd_client_endpoints }}"
@@ -67,13 +72,6 @@
   register: etcd_ca_pki
   delegate_to: "{{ groups['etcd'][0] }}"
   run_once: True
-
-- name: create kubernetes pki directory
-  file:
-    dest: /etc/kubernetes/pki/etcd
-    state: directory
-    owner: root
-    group: root
 
 - name: add etcd ca cert to the rest of the etcd nodes
   no_log: True

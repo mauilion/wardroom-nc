@@ -1,3 +1,4 @@
 ---
-kube-ucarp-vip:
+kube_ucarp_vip:
   primary_interface: enp0s8
+  vip_ip: 10.10.10.10/24

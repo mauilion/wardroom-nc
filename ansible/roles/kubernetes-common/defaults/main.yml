@@ -1,7 +1,7 @@
 ---
 kubernetes_common:
   api_fqdn: borg.dealercenter.net
-  api_ip: 172.21.57.32
+  api_ip: 10.10.10.10
   kubernetes_version: 1.9.7
   pod_cidr: '172.22.0.0/17'
   service_cidr: '172.22.128.0/17'

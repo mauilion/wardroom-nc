@@ -1,5 +1,9 @@
 ---
 kubeadm_release_url: "https://storage.googleapis.com/kubernetes-release/release/{{ etcd.kubeadm_version }}/bin/linux/amd64/kubeadm"
 etcd_release_url: "https://github.com/coreos/etcd/releases/download/{{ etcd.version }}/etcd-{{ etcd.version }}-linux-amd64.tar.gz"
+etcd_schema: "https://"
+etcd_client_port: ":2379"
+etcd_peer_port: ":2380"
+etcd_member_address: "{{hostvars[inventory_hostname]['ansible_' + etcd.interface]['ipv4']['address']}}"
 etcd_client_endpoints: "{{ groups['etcd']|map('extract', hostvars, ['ansible_' + etcd.interface, 'ipv4', 'address'])|map('regex_replace', '^(.*)$', 'https://\\1:2379')|list|sort }}"
 etcd_cluster_endpoints: "{% for host in groups['etcd']|sort %}{{hostvars[host]['inventory_hostname']}}=https://{{hostvars[host]['ansible_' + etcd.interface]['ipv4']['address']}}:2380{% if not loop.last %},{% endif %}{% endfor %}"
