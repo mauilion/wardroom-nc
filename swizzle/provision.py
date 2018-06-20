@@ -124,7 +124,7 @@ def main():
 
     node_state = vagrant_status()
     inventory_file = generate_inventory(node_state)
- #   run_ansible(inventory_file, extra_args)
+    run_ansible(inventory_file, extra_args)
 
 
 if __name__ == '__main__':
